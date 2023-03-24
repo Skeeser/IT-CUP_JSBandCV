@@ -61,13 +61,37 @@ def set_shift(image):   #均值迁移
 """-------------------锐化------------------------"""
 """
 锐化滤波
+拉普拉斯算子锐化与sobel算子锐化
 """
+def sharp_laplace(image): # 拉普拉斯算子锐化
+    # 拉普拉斯算子锐化
+    kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], np.float32)  # 定义拉普拉斯算子
+    dst = cv.filter2D(image, -1, kernel=kernel)
+    cv.imshow("laplace_sharp", dst)
+
+
+def sharp_sobel(image): # sobel算子锐化
+    # gimg = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+    gimg = image
+    # 对x方向梯度进行sobel边缘提取
+    x = cv.Sobel(gimg, cv.CV_64F, 1, 0)
+    # 对y方向梯度进行sobel边缘提取
+    y = cv.Sobel(gimg, cv.CV_64F, 0, 1)
+    # 对x方向转回uint8
+    absX = cv.convertScaleAbs(x)
+    # 对y方向转会uint8
+    absY = cv.convertScaleAbs(y)
+    # x，y方向合成边缘检测结果
+    dst1 = cv.addWeighted(absX, 0.5, absY, 0.5, 0)
+    res = dst1 + image
+    cv.imshow("label", res)
 
 
 
 if __name__ == "__main__":
     cv.imshow("src_image", img)
-    set_blur(img)
-    set_shift(img)
+    # set_median_blur(img)
+    # sharp_laplace(img)
+    sharp_sobel(img)
     cv.waitKey(0)
     cv.destroyAllWindows()
