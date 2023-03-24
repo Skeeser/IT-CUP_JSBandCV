@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 img = cv.imread("C:\\mydoc\\ElectricDesign_project\\nobodyfly\\IT-CUP_JSBandCV\\test_pic\\42.jpg", cv.IMREAD_COLOR)
 
+"""-------------------平滑------------------------"""
 """
 均值模糊 : 去随机噪声有很好的去噪效果(低通滤波)
 （1, 15）是垂直方向模糊，（15， 1）是水平方向模糊
@@ -57,8 +58,14 @@ def set_shift(image):   #均值迁移
     cv.imshow("shift_demo", dst)
 
 
+"""-------------------锐化------------------------"""
+"""
+锐化滤波
+"""
 
-if __name__ == "__main__" :
+
+
+if __name__ == "__main__":
     cv.imshow("src_image", img)
     set_blur(img)
     set_shift(img)

@@ -36,7 +36,7 @@ def set_gray_RGB(image):
 
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     set_gray(img)
     cv.waitKey(0)  # 等待键盘触发事件，释放窗口
 
