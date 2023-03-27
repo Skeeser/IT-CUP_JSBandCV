@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 img = cv.imread("C:\\mydoc\\ElectricDesign_project\\nobodyfly\\IT-CUP_JSBandCV\\test_pic\\42.jpg", cv.IMREAD_COLOR)
 
+"""二值化"""
 """
 全局阈值化处理
 src：表示的是图片源

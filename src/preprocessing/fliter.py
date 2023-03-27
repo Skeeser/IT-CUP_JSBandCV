@@ -21,6 +21,22 @@ def set_median_blur(image):
     dst = cv.medianBlur(image, 5)
     cv.imshow("median_blur_demo", dst)
 
+
+"""
+高斯滤波是一种线性平滑滤波，适用于消除高斯噪声，广泛应用于图像处理的减噪过程。
+通俗的讲，高斯滤波就是对整幅图像进行加权平均的过程，每一个像素点的值，都由其本身和邻域内的其他像素值经过加权平均后得到。
+cv2.GaussianBlur(src, ksize, sigmaX, sigmaY, borderType)
+src：输入的图像
+ksize：高斯卷积核的大小。注意：卷积核的高度和宽度都应为奇数，且可以不同。
+sigmaX：水平方向的标准差
+sigmaY：垂直方向的标准差，默认值为0，表示与sigmaX相同
+borderType：边界类型
+"""
+def set_gaussian_blur(image):
+    img_gaussianBlur = cv.GaussianBlur(img, (3, 3), 1)
+    cv.imshow("img_gaussianBlur", img_gaussianBlur)
+
+
 """
 用户自定义模糊
 下面除以25是防止数值溢出
@@ -52,6 +68,7 @@ bilateralFilter(src, d, sigmaColor, sigmaSpace[, dst[, borderType]]) -> dst
 def set_bi(image):      #双边滤波
     dst = cv.bilateralFilter(image, 0, 100, 5)
     cv.imshow("bi_demo", dst)
+
 
 def set_shift(image):   #均值迁移
     dst = cv.pyrMeanShiftFiltering(image, 10, 50)
@@ -85,7 +102,6 @@ def sharp_sobel(image): # sobel算子锐化
     dst1 = cv.addWeighted(absX, 0.5, absY, 0.5, 0)
     res = dst1 + image
     cv.imshow("label", res)
-
 
 
 if __name__ == "__main__":
