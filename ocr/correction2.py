@@ -73,27 +73,29 @@ def image_binarization_part_situation(img):
 def ocrprocess(image):
     preprocess = 'blur'  # thresh
 
-    image = cv2.imread('scan.jpg')
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # image = cv2.imread('scan.jpg')
+    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # gray = image
+    # if preprocess == "thresh":
+    #     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-    if preprocess == "thresh":
-        gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-
-    if preprocess == "blur":
-        gray = cv2.medianBlur(gray, 3)
+    # if preprocess == "blur":
+    #     gray = cv2.medianBlur(gray, 3)
 
     filename = "{}.png".format(os.getpid())
-    cv2.imwrite(filename, gray)
-
-    text = pytesseract.image_to_string(Image.open(filename))
+    cv2.imwrite("./ocr/" + filename, image)
+	
+    print("start ocr.......")
+    # text = pytesseract.image_to_string(Image.open(filename))
+    text = pytesseract.image_to_string(Image.open("./ocr/" + filename))
     print(text)
-    os.remove(filename)
+    os.remove("./ocr/" + filename)
 
 
 # 使用霍夫变换
 def getCorrect2():
     # 读取图片，灰度化
-    src = cv2.imread("D:\\AllMyProject\\ElectricDesign_project\\nobodyfly\\IT-CUP_JSBandCV\\test_pic\\ocr_test_pic2.jpg")
+    src = cv2.imread("/home/orangepi/mycv/IT-CUP_JSBandCV-main/ocr/ocr_test_pic2.jpg")
     # src = color_equilibrium(src)
     # 坐标也会相同变化
     ratio = src.shape[0] / 500.0
@@ -137,15 +139,17 @@ def getCorrect2():
 
     warped = cv2.cvtColor(rotateImg, cv2.COLOR_BGR2GRAY)
     ref = cv2.threshold(warped, 150, 255, cv2.THRESH_BINARY)[1]
-    showAndWaitKey("bImg", ref)
+    # showAndWaitKey("bImg", ref)
     ocrprocess(ref)
+    cv2.waitKey(0)
     cv2.destroyAllWindows()
     # cv2.imwrite('result.jpg', rotateImg)
 
 
 def showAndWaitKey(winName, img):
     cv2.imshow(winName, img)
-    cv2.waitKey()
+    # cv2.waitKey(0)
+    # cv2.destroyWindow()
 
 
 if __name__ == "__main__":              
