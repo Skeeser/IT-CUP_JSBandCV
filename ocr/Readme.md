@@ -12,3 +12,10 @@ sudo apt-get install tesseract
 pip install mediapipe
 ```
 
+
+
+```
+pip install pyttsx3
+import pyttsx3
+```
+

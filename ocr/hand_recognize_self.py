@@ -291,12 +291,12 @@ class DrawSomeInfo:
                             if self.hand_mode != 'double':
                                 # 初始化识别结果
                                 self.last_detect_res = {'detection': None, 'ocr': '无'}
+                                ymin = min(self.last_finger_cord_y['Left'], self.last_finger_cord_y['Right'])
+                                ymax = max(self.last_finger_cord_y['Left'], self.last_finger_cord_y['Right'])
+                                xmin = min(self.last_finger_cord_x['Left'], self.last_finger_cord_x['Right'])
+                                xmax = max(self.last_finger_cord_x['Left'], self.last_finger_cord_x['Right'])
                                 # 传给缩略图
-                                raw_img = frame_copy[self.last_finger_cord_y['Left']:self.last_finger_cord_y['Right'],
-                                          self.last_finger_cord_x['Left']:self.last_finger_cord_x['Right'], ]
-                                # if(raw_img[0] == 0 or raw_img[1] == 0):
-                                #     print("hands position error")
-                                #     exit()
+                                raw_img = frame_copy[ymin: ymax, xmin: xmax, ]
                                 frame = self.generateThumb(raw_img, frame)
 
                             self.hand_mode = 'double'
